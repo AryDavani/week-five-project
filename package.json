@@ -1,0 +1,15 @@
+{
+  "name": "week-five-project",
+  "version": "1.0.0",
+  "description": "Mystery Word game web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ary Davani",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mustache-express": "^1.2.5"
+  }
+}
