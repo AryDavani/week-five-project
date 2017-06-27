@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mystery Word Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    {{#context}}
+      <h1>{{blankWord}}</h1>
+    {{/context}}
+    <form class="container flex" action="/" method="post">
+      <input type="text" name="letter" value="">
+      <button id="letter" class="btn" type="submit" name="">Guess Letter</button>
+    </form>
+    <form class="container flex" action="/new-word" method="post">
+      <button class="btn" type="submit" name="">New Word</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
+</html>
