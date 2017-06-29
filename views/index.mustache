@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    {{#context}}
-      <h1>{{blankWord}}</h1>
-    {{/context}}
-    <form class="container flex" action="/" method="post">
+    {{#blankWord}}
+      <span>{{.}}</span>
+    {{/blankWord}}
+    <form class="container flex" action="/letter" method="post">
       <input type="text" name="letter" value="">
       <button id="letter" class="btn" type="submit" name="">Guess Letter</button>
     </form>

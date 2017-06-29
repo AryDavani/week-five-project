@@ -21,39 +21,47 @@ const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().sp
 
 let randomWord = [];
 let blankWord = [];
+let letterGuessed;
 let context = {
   randomWord: randomWord,
   blankWord: blankWord
 };
 
-function newGame() {
+function newWord() {
+  blankWord = [];
   let randomNum = Math.floor(Math.random() * words.length);
-
     if (words[randomNum].length > 4 && words[randomNum].length < 11){
       randomWord = words[randomNum].split('');
       for (var i = 0; i < randomWord.length; i++) {
         blankWord.push('_');
       }
     } else {
-      return newGame();
-    }
+      return newWord();
 
+    } return blankWord;
   }
-console.log(randomWord);
-console.log(blankWord);
+
+  function guessLetter() {
+    if (letterGuessed.length < 2){
+      console.log('valid');
+    } else {
+      console.log('invalid letter');
+    }
+  }
 
 
 app.get('/', function(req, res) {
-  res.render('index', {context});
+  res.render('index', {blankWord});
 });
 
-app.post('/', function(req, res) {
-  let letterGuessed = req.body.letter;
+app.post('/letter', function(req, res) {
+  letterGuessed = req.body.letter;
+  guessLetter();
   res.redirect('/');
 });
 
 app.post('/new-word', function(req, res) {
-  newGame();
+  newWord();
   res.redirect('/');
 });
 
