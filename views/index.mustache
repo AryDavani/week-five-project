@@ -7,16 +7,41 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    {{#blankWord}}
-      <span>{{.}}</span>
-    {{/blankWord}}
-    <form class="container flex" action="/letter" method="post">
-      <input type="text" name="letter" value="">
-      <button id="letter" class="btn" type="submit" name="">Guess Letter</button>
-    </form>
-    <form class="container flex" action="/new-word" method="post">
-      <button class="btn" type="submit" name="">New Word</button>
-    </form>
+
+    <header class="container">
+      <div class="flexin">
+        <h1>Mystery Word Guessing Game</h1>
+      </div>
+      <div class="flexin">
+        <h3>Try to guess the word in {{#attempts}}{{.}}{{/attempts}} attempts!</h3>
+      </div>
+    </header>
+
+    <div class="blankword">
+      {{#blankWord}}
+        <span>{{.}}</span>
+      {{/blankWord}}
+    </div>
+
+    <div class="flexin">
+      <form class="flexin width" action="/letter" method="post">
+        <input class="inputLetter" type="text" name="letter" value="">
+        <button id="letter" class="btn" type="submit" name="">Guess Letter</button>
+      </form>
+      <form class="flexin" action="/new-word" method="post">
+        <button class="btn" type="submit" name="">New Word</button>
+      </form>
+    </div>
+
+    <div class="used">
+      <h5>Letters Used:</h5>
+        <div class="flexin">
+          {{#usedLetters}}
+            <h5 class="space">{{.}}</h5>
+          {{/usedLetters}}
+        </div>
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </body>

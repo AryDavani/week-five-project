@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const path = require('path');
@@ -19,39 +21,66 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 
+//variables that will all move to controllers.js
+
 let randomWord = [];
 let blankWord = [];
-let letterGuessed;
+let usedLetters = [];
+let letterGuessed = [];
+let attempts;
+
 let context = {
   randomWord: randomWord,
-  blankWord: blankWord
+  blankWord: blankWord,
+  attempts: attempts,
+  letterGuessed: letterGuessed,
+  usedLetters: usedLetters
 };
 
+// writing the functions here before I move them to controllers.js
+
+//creating new random word
 function newWord() {
+  attempts = 8;
   blankWord = [];
+  letterGuessed = [];
   let randomNum = Math.floor(Math.random() * words.length);
     if (words[randomNum].length > 4 && words[randomNum].length < 11){
       randomWord = words[randomNum].split('');
       for (var i = 0; i < randomWord.length; i++) {
         blankWord.push('_');
+        context.blankWord = blankWord;
       }
     } else {
       return newWord();
-
     } return blankWord;
   }
 
+
   function guessLetter() {
-    if (letterGuessed.length < 2){
-      console.log('valid');
-    } else {
-      console.log('invalid letter');
+    usedLetters.push(letterGuessed);
+    context.usedLetters = usedLetters;
+    context.letterGuessed = letterGuessed;
+    attempts = attempts - 1;
+    context.attempts = attempts;
+    if (letterGuessed.length < 2 && letterGuessed.length > 0){
+      for (var i = 0; i < randomWord.length; i++) {
+        if (letterGuessed.toLowerCase() === randomWord[i]){
+          blankWord.splice(i, 1, letterGuessed);
+          context.blankWord = blankWord;
+        } else {
+        }
+      }
+    }
+    if (attempts < 1) {
     }
   }
 
+// requests that will move to routes.js
 
 app.get('/', function(req, res) {
-  res.render('index', {blankWord});
+  console.log(context.blankWord);
+  res.render('index', context);
 });
 
 app.post('/letter', function(req, res) {
@@ -62,6 +91,7 @@ app.post('/letter', function(req, res) {
 
 app.post('/new-word', function(req, res) {
   newWord();
+  console.log(randomWord);
   res.redirect('/');
 });
 

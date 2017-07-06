@@ -1,3 +1,3 @@
 # Mystery Word Game
 
-A simple word guessing game application 
+A simple word guessing game application

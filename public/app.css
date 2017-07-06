@@ -1,4 +1,32 @@
-.flex {
+.flexin {
   display: flex;
-  width: 200px;
+  justify-content: center;
+  margin: 10px;
+}
+.blankword {
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+}
+span {
+  margin: 10px;
+  font-size: 30px;
+}
+.width {
+  width: 150px;
+}
+.inputLetter {
+  text-align: center;
+}
+header {
+  display: flex;
+  flex-direction: column;
+}
+.used {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.space {
+  margin: 10px;
 }
