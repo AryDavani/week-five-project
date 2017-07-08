@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  </head>
+  <body>
+    <h1 class="center-align valign blue">{{message}}</h1>
+    <form class="" action="/win" method="post">
+      <h3>Would you like to play again?</h3>
+      <button class="btn" type="submit" name="YesButton">Yes</button>
+      <button class="btn red" type="submit" name="NoButton">No</button>
+    </form>
+  </body>
+</html>
