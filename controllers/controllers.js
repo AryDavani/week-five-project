@@ -85,7 +85,7 @@ module.exports = {
           };
         };
 
-      if (letterIsWithin === false) {
+      if (!letterIsWithin && !letterDuplicate) {
         attempts = attempts - 1;
         context.attempts = attempts;
       };
