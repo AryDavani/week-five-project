@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    
+
     <header class="container">
       <div class="flexin">
         <h1>Mystery Word Guessing Game</h1>
       </div>
       <div class="flexin">
         <h3>Try to guess the word in {{#attempts}}{{.}}{{/attempts}} attempts!</h3>
+      </div>
+      <div class="flexin">
+        <h5 class="red-text darken">{{#message}}{{.}}{{/message}}</h5>
       </div>
     </header>
 
@@ -26,15 +29,15 @@
     <div class="flexin">
       <form class="flexin width" action="/letter" method="post">
         <input class="inputLetter" type="text" name="letter" value="">
-        <button id="letter" class="btn" type="submit" name="">Guess Letter</button>
+        <button id="letter" class="btn red lighten" type="submit" name="">Guess Letter</button>
       </form>
       <form class="flexin" action="/new-word" method="post">
-        <button class="btn" type="submit" name="">New Word</button>
+        <button class="btn blue darken-3" type="submit" name="">New Word</button>
       </form>
     </div>
 
     <div class="used">
-      <h5>Letters Used:</h5>
+      <h5>Letters Used</h5>
         <div class="flexin">
           {{#usedLetters}}
             <h5 class="space">{{.}}</h5>

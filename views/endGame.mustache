@@ -6,11 +6,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
   </head>
   <body>
-    <h1 class="center-align valign blue">{{message}}</h1>
-    <form class="" action="/win" method="post">
+
+    <div class="container center-align">
+      <h1 class="center-align blue-text darken">{{#endMessage}}{{.}}{{/endMessage}}</h1>
       <h3>Would you like to play again?</h3>
-      <button class="btn" type="submit" name="YesButton">Yes</button>
-      <button class="btn red" type="submit" name="NoButton">No</button>
-    </form>
+      <form class="" action="/yesButton" method="post">
+        <button class="btn" type="submit" name="YesButton">Yes</button>
+      </form>
+      <br>
+      <form class="" action="/noButton" method="post">
+        <button class="btn red" type="submit" name="NoButton">No</button>
+      </form>
+    </div>
+
   </body>
 </html>

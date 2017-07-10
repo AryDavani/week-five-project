@@ -8,16 +8,17 @@ let blankWord = [];
 let usedLetters = [];
 let letterGuessed = [];
 let attempts = 8;
+let letterDuplicate = false;
+let validLetter = true;
+let letterIsWithin = false;
+let endMessage = 'Ouch, you lose!';
 
 let context = {
-  randomWord: randomWord,
   blankWord: blankWord,
   attempts: attempts,
-  letterGuessed: letterGuessed,
-  usedLetters: usedLetters
+  usedLetters: usedLetters,
+  message: '',
 };
-
-let endMsg;
 
 let isAlpha = function(ch){
   return /^[A-Z]$/i.test(ch);
@@ -25,7 +26,7 @@ let isAlpha = function(ch){
 
 function randomPick() {
   let randomNum = Math.floor(Math.random() * words.length);
-    if (words[randomNum].length > 4 && words[randomNum].length < 11){
+    if (words[randomNum].length > 3 && words[randomNum].length < 11){
       randomWord = words[randomNum].split('');
       for (var i = 0; i < randomWord.length; i++) {
         blankWord.push('_');
@@ -34,52 +35,86 @@ function randomPick() {
     } else {
       return randomPick();
     } return blankWord;
-}
+};
+
+function endScreen(req, res) {
+  res.redirect('/end');
+};
 
 module.exports = {
   newWord: function(req, res) {
     blankWord = [];
     letterGuessed = [];
+    usedLetters = [];
     randomPick();
       res.redirect('/');
     },
 
     guessLetter: function(req, res) {
+      context.message = '';
       letterGuessed = req.body.letter;
       console.log(letterGuessed);
-      // is it a single alphabet letter
-      //
-      // if it's correct, add it to the dom
-      // if it's wrong and you have no remaining guesses - you lose
-      // if it's wrong and you have remaining guesess, update # of guesses remaining & add to guesses
 
-      if (!isAlpha(letterGuessed)) {
-      } else if (letterGuessed.length !== 1) {
-      } else if (attempts === 0) {
-      }
+      if (attempts === 0) {
+        // go to game over screen
+        endScreen();
+      };
+
+      if (!isAlpha(letterGuessed) && letterGuessed.length !== 1) {
+        context.message = 'try using a single letter';
+        validLetter = false;
+      };
 
       for (var i = 0; i < usedLetters.length; i++) {
-        if (usedLetters[i] == letterGuessed){
-          // "You already guess that letter"
-        }
-      usedLetters.push(letterGuessed);
-      context.usedLetters = usedLetters;
-      context.letterGuessed = letterGuessed;
+        if (letterGuessed == usedLetters[i]){
+          letterDuplicate = true;
+          context.message = 'You already guessed that letter';
+        };
+      };
 
-      if (letterGuessed.length < 2 && letterGuessed.length > 0){
+      if (validLetter === true && letterDuplicate === false){
+        usedLetters.push(letterGuessed);
+        context.usedLetters = usedLetters;
+
         for (var i = 0; i < randomWord.length; i++) {
           if (letterGuessed.toLowerCase() === randomWord[i]){
             blankWord.splice(i, 1, letterGuessed);
             context.blankWord = blankWord;
-          }
-        }
-      }
-    }
+            letterIsWithin = true;
+            };
+          };
+        };
+
+      if (letterIsWithin === false) {
+        attempts = attempts - 1;
+        context.attempts = attempts;
+      };
+
+      if (blankWord === randomWord) {
+        endMessage = 'Hooray, you win!';
+      };
+
     res.redirect('/');
   },
 
   homePage: function(req, res) {
+    endMessage = 'Ouch, you lose!';
+    letterDuplicate = false;
+    validLetter = true;
+    letterIsWithin = false;
     res.render('index', context);
+  },
+
+  end: function(req, res) {
+    res.render('endGame', {endMessage});
+  },
+
+  yesButton: function(req, res) {
+    res.redirect('/');
+  },
+
+  noButton: function(req, res) {
+    res.render('noMoreGames');
   }
 
 
