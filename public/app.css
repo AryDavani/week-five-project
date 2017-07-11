@@ -30,3 +30,7 @@ header {
 .space {
   margin: 10px;
 }
+.goodbye-message {
+  width: 100vw;
+  height: 100vh;
+}

@@ -24,6 +24,16 @@ let isAlpha = function(ch){
   return /^[A-Z]$/i.test(ch);
 };
 
+function resetAll() {
+  blankWord = [];
+  context.blankWord = blankWord;
+  attempts = 8;
+  context.attempts = attempts;
+  usedLetters = [];
+  context.usedLetters = usedLetters;
+  context.message = '';
+};
+
 function randomPick() {
   let randomNum = Math.floor(Math.random() * words.length);
     if (words[randomNum].length > 3 && words[randomNum].length < 11){
@@ -43,9 +53,7 @@ function endScreen(req, res) {
 
 module.exports = {
   newWord: function(req, res) {
-    blankWord = [];
-    letterGuessed = [];
-    usedLetters = [];
+    resetAll();
     randomPick();
       res.redirect('/');
     },
@@ -53,12 +61,6 @@ module.exports = {
     guessLetter: function(req, res) {
       context.message = '';
       letterGuessed = req.body.letter;
-      console.log(letterGuessed);
-
-      if (attempts === 0) {
-        // go to game over screen
-        endScreen();
-      };
 
       if (!isAlpha(letterGuessed) && letterGuessed.length !== 1) {
         context.message = 'try using a single letter';
@@ -85,13 +87,24 @@ module.exports = {
           };
         };
 
-      if (!letterIsWithin && !letterDuplicate) {
+      if (!letterIsWithin && !letterDuplicate && validLetter) {
         attempts = attempts - 1;
         context.attempts = attempts;
       };
+      console.log(attempts);
+      console.log(randomWord);
+      console.log(blankWord === randomWord);
+      console.log(randomWord !== blankWord);
 
       if (blankWord === randomWord) {
+        // display win message
         endMessage = 'Hooray, you win!';
+        res.redirect('/end');
+      };
+
+      if (attempts < 1) {
+        // go to game over screen
+        res.redirect('/end');
       };
 
     res.redirect('/');
@@ -110,6 +123,7 @@ module.exports = {
   },
 
   yesButton: function(req, res) {
+    resetAll();
     res.redirect('/');
   },
 
