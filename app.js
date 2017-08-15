@@ -28,7 +28,7 @@ app.post('/new-word', Controllers.newWord);
 app.post('/yesButton', Controllers.yesButton);
 app.post('/noButton', Controllers.noButton);
 
-var port = process.ENV.PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log('App listening on port 3000...');
 });

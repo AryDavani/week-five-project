@@ -1,7 +1,7 @@
 const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
-const words = fs.readFileSync("../words", "utf-8").toLowerCase().split("\n");
+const words = fs.readFileSync("words", "utf-8").toLowerCase().split("\n");
 
 
 let randomWord = [];
