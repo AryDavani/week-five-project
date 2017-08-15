@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const Controllers = require('./controllers/controllers.js');
 const fs = require('fs');
-const words = fs.readFileSync("../words", "utf-8").toLowerCase().split("\n");
+const words = fs.readFileSync("words", "utf-8").toLowerCase().split("\n");
 
 const app = express();
 
