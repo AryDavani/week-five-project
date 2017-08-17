@@ -2,7 +2,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #fffbdd;
+  background-color: #002685;
+  color: #fffbdd;
 }
 
 .flexin {
@@ -12,8 +13,8 @@ body {
 }
 .flexin h1 {
   text-transform: uppercase;
-  color: #fffbdd;
-  text-shadow: -1px 1px black, 1px -1px black, 2px -2px black, 3px -3px black, 4px -4px black, 5px -5px black, 6px -6px black;
+  color: #002685;
+  text-shadow: -1px 1px #fffbdd, 1px -1px #fffbdd, 2px -2px #fffbdd, 3px -3px #fffbdd, 4px -4px #fffbdd;
 }
 .blankword {
   margin: 50px;
